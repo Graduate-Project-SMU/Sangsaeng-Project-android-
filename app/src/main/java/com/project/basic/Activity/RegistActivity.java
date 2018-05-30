@@ -61,6 +61,8 @@ public class RegistActivity extends AppCompatActivity {
             }
         });
 
+        //todo: 회원가입 서버 통신부분
+
 
     }
 

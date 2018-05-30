@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.RegistActivity" />
-        <activity android:name=".Board.makeBoardActivity"></activity>
+        <activity android:name=".Board.makeBoardActivity" />
+        <activity android:name=".MyInfo.MyInfoModifyActivity"></activity>
     </application>
 
 </manifest>

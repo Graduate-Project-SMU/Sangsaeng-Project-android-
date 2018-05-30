@@ -4,6 +4,7 @@ package com.project.basic.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,16 @@ import com.project.basic.Board.makeBoardActivity;
 import com.project.basic.Dialog.Board_Dialog;
 import com.project.basic.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;r
+
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class BoardFragment extends Fragment {
@@ -64,6 +73,47 @@ public class BoardFragment extends Fragment {
         boardList.add(new BoardText("나","나","나","나"));
         boardList.add(new BoardText("나","나","나","나"));
         //===========================================================================================
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("http://13.125.61.58:3001/board/show")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.d("TEST", "ERROR Message : " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                String responseData = response.body().string();
+                Log.d("TEST", "responseData : " + responseData);
+
+            }
+        });
+
+        // 방법 2
+//        run("http://13.125.61.58:3001/board/show");
+//        String run(String url) throws IOException {
+//            Request request = new Request.Builder().url(url).build();
+//
+//            Response response = client.newCall(request).execute();
+//            return response.body().string();
+//        }
+
+        // 방법 3
+//        Response responseClient = null;
+//        try {
+//            responseClient = client.newCall(request).execute();
+//            Log.d("TEST", "responseData : " + responseClient.toString());
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        //=====
 
         adapter = new BoardListAdapter(getActivity(),boardList);
         listView.setAdapter(adapter);
@@ -123,4 +173,6 @@ public class BoardFragment extends Fragment {
             dialog.dismiss();
         }
     };
+
+
 }

@@ -32,7 +32,5 @@ dependencies {
     // okhttp
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
 
-    // google map
-    implementation 'com.google.android.gms:play-services-maps:11.8.0'
-    implementation 'com.google.android.gms:play-services-location:11.8.0'
+
 }

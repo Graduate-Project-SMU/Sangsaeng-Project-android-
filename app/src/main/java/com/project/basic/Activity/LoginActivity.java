@@ -267,7 +267,7 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8080/login/signin")
+                    .url("http://13.125.61.58:3001/auth/signin")
                     .post(formBody)
                     .build();
 
@@ -297,9 +297,9 @@ public class LoginActivity extends AppCompatActivity {
 
             // 파싱한 Json으로 판별
             if (mFlag.equals("success")) {
+
                 return true;
             } else if (mFlag.equals("fail")) {
-
                 return false;
             }
 
