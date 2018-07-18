@@ -1,7 +1,9 @@
 package com.project.basic.Fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,10 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.basic.Board.BoardListAdapter;
@@ -24,14 +24,11 @@ import com.project.basic.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;r
+import java.util.List;
 
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class BoardFragment extends Fragment {
@@ -74,10 +71,18 @@ public class BoardFragment extends Fragment {
         boardList.add(new BoardText("나","나","나","나"));
         //===========================================================================================
 
+
+        // 방법1
+//        Server server = new Server();
+//        server.execute("http://13.125.61.58:3001/board/show");
+
+
+        // 방법2
         OkHttpClient client = new OkHttpClient();
+        String query = loadToken();
 
         Request request = new Request.Builder()
-                .url("http://13.125.61.58:3001/board/show")
+                .url("http://13.125.61.58:3001/board/show?token=" + query)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -94,24 +99,6 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        // 방법 2
-//        run("http://13.125.61.58:3001/board/show");
-//        String run(String url) throws IOException {
-//            Request request = new Request.Builder().url(url).build();
-//
-//            Response response = client.newCall(request).execute();
-//            return response.body().string();
-//        }
-
-        // 방법 3
-//        Response responseClient = null;
-//        try {
-//            responseClient = client.newCall(request).execute();
-//            Log.d("TEST", "responseData : " + responseClient.toString());
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         //=====
 
@@ -174,5 +161,43 @@ public class BoardFragment extends Fragment {
         }
     };
 
+    private String loadToken(){
+        SharedPreferences preferences = getActivity().getSharedPreferences("userToken", Activity.MODE_PRIVATE);
+        String token = preferences.getString("token","0");
+        return token;
+    }
+
+//    class Server extends AsyncTask<String, Void, String>{
+//
+//        @Override
+//        protected String doInBackground(String... strings) {
+//
+//            String url = strings[0];
+//
+//            OkHttpClient client = new OkHttpClient();
+//
+//            Request request = new Request.Builder()
+//                .url(url)
+//                .build();
+//
+//            try {
+//                Response response = client.newCall(request).execute();
+//                return response.body().string();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                return null;
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            Log.d("test",s);
+//        }
+//    }
+
 
 }
+
+
+

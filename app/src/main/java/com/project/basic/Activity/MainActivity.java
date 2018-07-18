@@ -1,8 +1,12 @@
 package com.project.basic.Activity;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.project.basic.Fragment.CustomViewPagerAdapter;
 import com.project.basic.R;
@@ -23,4 +27,5 @@ public class MainActivity extends AppCompatActivity {
         viewPagerTab.setViewPager(viewPager);
         viewPager.setCurrentItem(0);
     }
+
 }
